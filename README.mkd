@@ -1,0 +1,11 @@
+Vikings
+=======
+
+
+Libraries
+---------
+
+  * [https://github.com/josephg/Chipmunk-js](Chipmunk) (2d physics engine)
+  * [http://threejs.org](ThreeJS) (3D graphics)
+  * [http://requirejs.org](RequireJS) (javascript loading)
+
