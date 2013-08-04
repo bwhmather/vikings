@@ -4,24 +4,26 @@ define("control/keyboard", [], function(){
 var exports = {};
 
 
-var KeyboardController = exports.KeyboardController = function(tracker)
+var KeyboardController = exports.KeyboardController = function(viking, tracker)
 {
+    this._viking = viking;
     this._tracker = tracker;
 };
 
-KeyboardController.prototype.getThrottle = function()
+KeyboardController.prototype.update = function(dt)
 {
-    if (this._tracker.pressed("W")) {
-        return 1.0;
-    } else {
-        return 0.0;
-    }
-};
+    var forwards = cp.v(0, 0);
+    if (this._tracker.pressed("W")) forwards.add(cp.v(0, 1));
+    if (this._tracker.pressed("A")) forwards.add(cp.v(-1, 0));
+    if (this._tracker.pressed("S")) forwards.add(cp.v(0, -1));
+    if (this._tracker.pressed("D")) forwards.add(cp.v(1, 0));
 
-KeyboardController.prototype.getPitchThrottle = function()
-{
-    return (this._tracker.pressed("A") ? 0.0 : -1.0) +
-           (this._tracker.pressed("D") ? 0.0 :  1.0);
+    if (cp.v.len(forwards)) {
+        this._viking.moving = true;
+        this._viking.direction = cp.v.toangle(forwards);
+    } else {
+        this._viking.moving = false;
+    }
 };
 
 return exports;

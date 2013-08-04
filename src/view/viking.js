@@ -10,36 +10,38 @@ var VikingView = exports.VikingView = function(scene, viking)
 {
     View.prototype.constructor.call(this, scene);
 
+    this.views = {};
+
     var loader = new THREE.JSONLoader();
 
-    loader.load('data/body.js', function (geometry, materials) {
+    loader.load('data/body.js?bust='+(new Date()).getTime(), function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
-        this.fuselage = new BodyView(scene, viking.bodies["body"], mesh);
+        this.views["body"] = new BodyView(scene, viking.bodies["body"], mesh);
     }.bind(this));
 
-    loader.load('data/beard.js', function (geometry, materials) {
+    loader.load('data/beard.js?bust='+(new Date()).getTime(), function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
-        this.beard = new THREE.Mesh(geometry, material);
-        scene.add(this.beard);
+        var mesh = new THREE.Mesh(geometry, material);
+        this.views["beard"] = new BodyView(scene, viking.bodies["body"], mesh);
     }.bind(this));
 
-    loader.load('data/hatchet.js', function (geometry, materials) {
+    loader.load('data/hatchet.js?bust='+(new Date()).getTime(), function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
-        this.hatchet = new THREE.Mesh(geometry, material);
-        scene.add(this.hatchet);
+        var mesh = new THREE.Mesh(geometry, material);
+        this.views["hatchet"] = new BodyView(scene, viking.bodies["body"], mesh);
     }.bind(this));
 
-    loader.load('data/helmet.js', function (geometry, materials) {
+    loader.load('data/helmet.js?bust='+(new Date()).getTime(), function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
-        this.helmet = new THREE.Mesh(geometry, material);
-        scene.add(this.helmet);
+        var mesh = new THREE.Mesh(geometry, material);
+        this.views["helmet"] = new BodyView(scene, viking.bodies["body"], mesh);
     }.bind(this));
 
-    loader.load('data/shield.js', function (geometry, materials) {
+    loader.load('data/shield.js?bust='+(new Date()).getTime(), function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
-        this.shield = new THREE.Mesh(geometry, material);
-        scene.add(this.shield);
+        var mesh = new THREE.Mesh(geometry, material);
+        this.views["shield"] = new BodyView(scene, viking.bodies["body"], mesh);
     }.bind(this));
 }
 
@@ -47,6 +49,10 @@ VikingView.prototype = Object.create(View.prototype);
 
 VikingView.prototype.update = function()
 {
+    var view;
+    for (view in this.views) {
+        this.views[view].update();
+    }
 }
 
 

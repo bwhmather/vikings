@@ -1,5 +1,6 @@
 require.config({
-    baseUrl: "/src"
+    baseUrl: "/src",
+    urlArgs: "bust=" +  (new Date()).getTime()
 });
 
 
@@ -14,7 +15,9 @@ for (var i=0; i<deps.length; i++) {
 }
 
 var Viking = imports["viking"].Viking,
-    VikingView = imports["view/viking"].VikingView
+    VikingView = imports["view/viking"].VikingView,
+    KeyboardTracker = imports["util/keyboard"].KeyboardTracker,
+    KeyboardController = imports["control/keyboard"].KeyboardController;
 
 
 var main = function()
@@ -26,22 +29,16 @@ var main = function()
     var viewManager = new imports["util/view"].ViewManager(scene);
 
     //space.iterations = 30;
-    space.gravity = cp.v(0, -5);
-
+    space.gravity = cp.v(0, 0);
+    space.damping = 0.1;
     space.sleepTimeThreshold = 0.5;
     space.collisionSlop = 0.5;
-
-
-    var floor = space.addShape(new cp.SegmentShape(
-            space.staticBody,
-            cp.v(-640, 0), cp.v(640, 0), 0)
-    );
-    floor.setElasticity(1);
-    floor.setFriction(1);
 
     var viking = new Viking(space, cp.v(0,0));
     var vikingView = new VikingView(scene, viking);
     viewManager.addView(vikingView);
+
+    var vikingController = new KeyboardController(viking, new KeyboardTracker());
 
 	scene.add( new THREE.AmbientLight(0x000000));
 
@@ -71,10 +68,12 @@ var main = function()
 
 
     var update = function() {
-        requestAnimationFrame(update);
+        vikingController.update(1/60);
+        viking.update(1/60);
         space.step(1/60);
         viewManager.update();
         renderer.render(scene, camera);
+        requestAnimationFrame(update);
     };
     update();
 }
