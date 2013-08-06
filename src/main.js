@@ -3,7 +3,7 @@ require.config({
 });
 
 
-deps = ["util/viewport", "util/keyboard", "util/view",
+deps = ["util/viewport", "util/keyboard", "util/view", "util/camera",
         "viking/keyboard", "viking", "viking/view"];
 require(deps, function() {
 'use strict';
@@ -16,7 +16,8 @@ for (var i=0; i<deps.length; i++) {
 var Viking = imports["viking"].Viking,
     VikingView = imports["viking/view"].VikingView,
     KeyboardTracker = imports["util/keyboard"].KeyboardTracker,
-    KeyboardController = imports["viking/keyboard"].KeyboardController;
+    KeyboardController = imports["viking/keyboard"].KeyboardController,
+    BodyTracker = imports["util/camera"].BodyTracker;
 
 
 var viking_info = {
@@ -146,13 +147,13 @@ var main = function()
     var camera = new THREE.PerspectiveCamera(40, window.innerWidth /
                                                  window.innerHeight, 0.1, 1000);
     scene.add(camera);
+    camera.up = new THREE.Vector3(0, 0, 1);
 
     camera.position.x = 0;
     camera.position.y = -70;
     camera.position.z = 7;
 
-    camera.lookAt(new THREE.Vector3(0, 0, 0));
-
+    var cameraController = new BodyTracker(camera, vikings[player_id].bodies["body"]);
 
     var renderer = new THREE.WebGLRenderer({"antialias": true});
 
@@ -166,6 +167,7 @@ var main = function()
         for (id in vikings) {
             vikings[id].update(1/60);
         }
+        cameraController.update(1/60);
         space.step(1/60);
         viewManager.update();
         renderer.render(scene, camera);
