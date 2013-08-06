@@ -19,9 +19,97 @@ var Viking = imports["viking"].Viking,
     KeyboardController = imports["control/keyboard"].KeyboardController;
 
 
+var viking_info = {
+    1: {
+        "name": "Olaf",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    },
+    2: {
+        "name": "Bjørn",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    },
+    3: {
+        "name": "Børge",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    },
+    4: {
+        "name": "Diðrik",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    },
+    5: {
+        "name": "Dufþakur",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    },
+    6: {
+        "name": "Eðvald",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    },
+    7: {
+        "name": "Ege",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    },
+    8: {
+        "name": "Erik",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    },
+    9: {
+        "name": "Hågen",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    },
+    10: {
+        "name": "Høder",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    },
+    11: {
+        "name": "Iørgen",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    },
+    12: {
+        "name": "Jønis",
+        "helmet": "helmet",
+        "weapon": "hatchet",
+        "shield": "kite-shield",
+        "body": "body"
+    }
+};
+var player_id = 2;
+
+
 var main = function()
 {
-    console.log("running");
     var space = new cp.Space();
     var scene = new THREE.Scene();
 
@@ -33,18 +121,26 @@ var main = function()
     space.sleepTimeThreshold = 0.5;
     space.collisionSlop = 0.5;
 
-    var viking = new Viking(space, cp.v(0,0));
-    var vikingView = new VikingView(scene, viking);
-    viewManager.addView(vikingView);
+    var vikings = {};
+    var x = 0;
+    var id;
+    for (id in viking_info) {
+        vikings[id] = new Viking(space, viking_info[id], cp.v(x, 0));
+        x += 4;
+    }
 
-    var vikingController = new KeyboardController(viking, new KeyboardTracker());
+    var playerController = new KeyboardController(vikings[player_id], new KeyboardTracker());
+
+    for (id in vikings) {
+        viewManager.addView(new VikingView(scene, vikings[id]));
+    }
 
 	scene.add( new THREE.AmbientLight(0x000000));
 
     var sun = new THREE.PointLight( 0xaaaa99, 2, 1000 );
     sun.position.x = 100;
-    sun.position.y = 200;
-    sun.position.z = 300;
+    sun.position.y = -200;
+    sun.position.z = 100;
     scene.add(sun);
 
     var camera = new THREE.PerspectiveCamera(40, window.innerWidth /
@@ -52,10 +148,9 @@ var main = function()
     scene.add(camera);
 
     camera.position.x = 0;
-    camera.position.y = -10;
-    camera.position.z = 10;
+    camera.position.y = -70;
+    camera.position.z = 7;
 
-//    camera.rotation.x = Math.PI;
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 
@@ -67,8 +162,10 @@ var main = function()
 
 
     var update = function() {
-        vikingController.update(1/60);
-        viking.update(1/60);
+        playerController.update(1/60);
+        for (id in vikings) {
+            vikings[id].update(1/60);
+        }
         space.step(1/60);
         viewManager.update();
         renderer.render(scene, camera);

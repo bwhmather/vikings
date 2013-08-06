@@ -3,13 +3,20 @@ define("viking", [], function(){
 
 var exports = {};
 
-
-var Viking = exports.Viking = function(space, pos)
+var Viking = exports.Viking = function(space, spec, pos)
 {
     // Physics stuff
+    this._space = space;
     this.bodies = {};
     this.shapes = {};
     this.constraints = {};
+
+    // TODO 
+    this._moving = false;
+    this._heading = 0;
+
+    this.dead = false;
+
 
     var body = this.bodies["body"] = new cp.Body(1, 1); //cp.momentForCircle(1, 1, 1, 0));
     body.setPos(pos);
@@ -34,12 +41,45 @@ var Viking = exports.Viking = function(space, pos)
             1.1225, -1.1225
             ], cp.v(0,0))
 
-    for (name in this.bodies) space.addBody(this.bodies[name]);
-    for (name in this.shapes) space.addShape(this.shapes[name]);
-    for (name in this.constraints) space.addConstraint(this.constraints[name]);
+    for (name in this.bodies) {
+        this._space.addBody(this.bodies[name]);
+    }
 
-    this.moving = false;
-    this.direction = 0;
+    for (name in this.shapes) {
+        this._space.addShape(this.shapes[name]);
+    }
+
+    for (name in this.constraints) {
+        this._space.addConstraint(this.constraints[name]);
+    }
+};
+
+Viking.prototype.setDesiredHeading = function(heading) {
+    this._heading = heading;
+};
+Viking.prototype.getDesiredHeading = function() {
+    return this._heading;
+};
+
+Viking.prototype.setMoving = function(moving) {
+    this.moving = moving;
+}
+
+Viking.prototype.getHeading = function() {
+    return this.bodies["body"].a % (2*Math.PI);
+};
+
+
+Viking.prototype.setStateFromSnapshot = function(state)
+{
+    // for multiplayer
+    // TODO
+};
+
+Viking.prototype.setStateFromDelta = function(state_change)
+{
+    // for multiplayer
+    // TODO
 };
 
 Viking.prototype.update = function(dt)
@@ -66,7 +106,23 @@ Viking.prototype.update = function(dt)
 
 
     body.t = 4*difference - 0.2* body.w; // TODO proper controller
-}
+};
+
+Viking.prototype.destroy = function()
+{
+    for (name in this.bodies) {
+        this._space.removeBody(this.bodies[name]);
+    }
+
+    for (name in this.shapes) {
+        this._space.removeShape(this.shapes[name]);
+    }
+
+    for (name in this.constraints) {
+        this._space.removeConstraint(this.constraints[name]);
+    }
+};
+
 
 return exports;
 });

@@ -19,10 +19,10 @@ KeyboardController.prototype.update = function(dt)
     if (this._tracker.pressed("D")) forwards.add(cp.v(1, 0));
 
     if (cp.v.len(forwards)) {
-        this._viking.moving = true;
-        this._viking.direction = cp.v.toangle(forwards);
+        this._viking.setMoving(true);
+        this._viking.setDesiredHeading(cp.v.toangle(forwards));
     } else {
-        this._viking.moving = false;
+        this._viking.setMoving(false);
     }
 };
 
