@@ -9,3 +9,49 @@ Libraries
   * [http://threejs.org](ThreeJS) (3D graphics)
   * [http://requirejs.org](RequireJS) (javascript loading)
 
+
+
+
+Aiming models
+-------------
+
+  * Aim with mouse, click to move
+      - set heading
+      - set motion in viking coordinates
+
+  * Aim with mouse, left/right + up/down with keyboard
+      - set heading
+      - set motion in global coordinates
+
+  * Aim with mouse, forwards/backwards + strafe with keyboard
+      - set heading
+      - set motion in viking coordinates
+
+  * Forwards/backwards + turn with keyboard
+      - set roc of heading
+      - set motion in viking coordinates
+
+  * left/right + up/down with keyboard, aim forwards
+      - set heading
+      - set motion in global coordinates
+
+
+  * set from state
+  * set from state delta
+
+
+
+
+
+TODO
+----
+
+### code
+[ ] viking configuration format
+
+
+
+
+###
+[ ] fix body model
+[ ] texturing
