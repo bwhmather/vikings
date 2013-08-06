@@ -38,10 +38,10 @@ var VikingView = exports.VikingView = function(scene, viking)
         this.views["helmet"] = new BodyView(scene, viking.bodies["body"], mesh);
     }.bind(this));
 
-    loader.load('data/shield.js?bust='+(new Date()).getTime(), function (geometry, materials) {
+    loader.load('data/kite-shield.js?bust='+(new Date()).getTime(), function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
-        this.views["shield"] = new BodyView(scene, viking.bodies["body"], mesh);
+        this.views["shield"] = new BodyView(scene, viking.bodies["shield"], mesh);
     }.bind(this));
 }
 
