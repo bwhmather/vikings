@@ -62,7 +62,7 @@ Viking.prototype.getDesiredHeading = function() {
 };
 
 Viking.prototype.setMoving = function(moving) {
-    this.moving = moving;
+    this._moving = moving;
 }
 
 Viking.prototype.getHeading = function() {
@@ -89,17 +89,17 @@ Viking.prototype.update = function(dt)
     var forwards_advantage = 10;
     var base_strength = 15;
 
-    if (this.moving) {
+    if (this._moving) {
         body.activate();
         body.f = cp.v(
-            base_strength*Math.cos(this.direction),
-            base_strength*Math.sin(this.direction)
+            base_strength*Math.cos(this._heading),
+            base_strength*Math.sin(this._heading)
         );
     } else {
         body.f = cp.v(0,0);
     }
 
-    var difference = (this.direction - body.a) % (2*Math.PI);
+    var difference = (this._heading - body.a) % (2*Math.PI);
     difference = difference > Math.PI ? difference - 2*Math.PI :
                  difference < -Math.PI ? difference + 2*Math.PI :
                  difference;
