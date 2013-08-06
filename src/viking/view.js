@@ -1,4 +1,4 @@
-define("view/viking", ["util/view"], function(util_view){
+define("viking/view", ["util/view"], function(util_view){
 "use strict"
 
 var exports = {};

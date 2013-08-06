@@ -1,4 +1,4 @@
-define("control/keyboard", [], function(){
+define("viking/keyboard", [], function(){
 'use strict';
 
 var exports = {};

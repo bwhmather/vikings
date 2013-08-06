@@ -3,8 +3,8 @@ require.config({
 });
 
 
-deps = ["util/viewport", "util/keyboard", "util/view", "control/keyboard",
-        "viking", "view/viking"]
+deps = ["util/viewport", "util/keyboard", "util/view",
+        "viking/keyboard", "viking", "viking/view"];
 require(deps, function() {
 'use strict';
 
@@ -14,9 +14,9 @@ for (var i=0; i<deps.length; i++) {
 }
 
 var Viking = imports["viking"].Viking,
-    VikingView = imports["view/viking"].VikingView,
+    VikingView = imports["viking/view"].VikingView,
     KeyboardTracker = imports["util/keyboard"].KeyboardTracker,
-    KeyboardController = imports["control/keyboard"].KeyboardController;
+    KeyboardController = imports["viking/keyboard"].KeyboardController;
 
 
 var viking_info = {
