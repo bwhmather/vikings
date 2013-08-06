@@ -14,31 +14,31 @@ var VikingView = exports.VikingView = function(scene, viking)
 
     var loader = new THREE.JSONLoader();
 
-    loader.load('data/body.js?bust='+(new Date()).getTime(), function (geometry, materials) {
+    loader.load('data/body.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
         this.views["body"] = new BodyView(scene, viking.bodies["body"], mesh);
     }.bind(this));
 
-    loader.load('data/beard.js?bust='+(new Date()).getTime(), function (geometry, materials) {
+    loader.load('data/beard.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
         this.views["beard"] = new BodyView(scene, viking.bodies["body"], mesh);
     }.bind(this));
 
-    loader.load('data/hatchet.js?bust='+(new Date()).getTime(), function (geometry, materials) {
+    loader.load('data/hatchet.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
         this.views["hatchet"] = new BodyView(scene, viking.bodies["body"], mesh);
     }.bind(this));
 
-    loader.load('data/helmet.js?bust='+(new Date()).getTime(), function (geometry, materials) {
+    loader.load('data/helmet.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
         this.views["helmet"] = new BodyView(scene, viking.bodies["body"], mesh);
     }.bind(this));
 
-    loader.load('data/kite-shield.js?bust='+(new Date()).getTime(), function (geometry, materials) {
+    loader.load('data/kite-shield.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
         this.views["shield"] = new BodyView(scene, viking.bodies["shield"], mesh);
