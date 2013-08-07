@@ -42,6 +42,35 @@ Aiming models
 
 
 
+Camera
+------
+
+
+    viking pos  -> |set camera pos| \------------------------->|damp position|
+                \--------------------->|set camera direction|->|damp direction|
+
+
+    camera_pos_desired = f(viking_pos)
+    camera_pos = damping(camera_pos_desired, camera_pos)
+
+    camera_target_desired = g(viking_pos, camera_pos)
+    camera_zoom
+
+
+     -------------------
+    |                   |
+    |                   |
+    |                   |  <- viking track
+    |                   |
+    |     - - - - -     |
+     ----|---------|----
+         |         |  <- camera track
+          - - - - -
+
+
+
+
+
 
 TODO
 ----
