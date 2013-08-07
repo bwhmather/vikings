@@ -157,7 +157,7 @@ var main = function()
                     new THREE.Vector3(0.9, -0.5, 1));
 
     var cameraController = new CameraPointTracker(camera, pos_mat,
-            (player.bodies["body"].getPos).bind(player.bodies["body"]));
+            (player.body.getPos).bind(player.body));
 
     var renderer = new THREE.WebGLRenderer({"antialias": true});
 
@@ -182,4 +182,3 @@ var main = function()
 
 main();
 });
-

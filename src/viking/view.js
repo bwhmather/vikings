@@ -17,31 +17,31 @@ var VikingView = exports.VikingView = function(scene, viking)
     loader.load('data/body.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
-        this.views["body"] = new BodyView(scene, viking.bodies["body"], mesh);
+        this.views["body"] = new BodyView(scene, viking.body, mesh);
     }.bind(this));
 
     loader.load('data/beard.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
-        this.views["beard"] = new BodyView(scene, viking.bodies["body"], mesh);
+        this.views["beard"] = new BodyView(scene, viking.body, mesh);
     }.bind(this));
 
     loader.load('data/sword.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
-        this.views["hatchet"] = new BodyView(scene, viking.bodies["weapon"], mesh);
+        this.views["hatchet"] = new BodyView(scene, viking.weapon.body, mesh);
     }.bind(this));
 
     loader.load('data/helmet.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
-        this.views["helmet"] = new BodyView(scene, viking.bodies["body"], mesh);
+        this.views["helmet"] = new BodyView(scene, viking.body, mesh);
     }.bind(this));
 
     loader.load('data/kite-shield.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
-        this.views["shield"] = new BodyView(scene, viking.bodies["shield"], mesh);
+        this.views["shield"] = new BodyView(scene, viking.shield.body, mesh);
     }.bind(this));
 }
 
