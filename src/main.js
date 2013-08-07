@@ -17,7 +17,7 @@ var Viking = imports["viking"].Viking,
     VikingView = imports["viking/view"].VikingView,
     KeyboardTracker = imports["util/keyboard"].KeyboardTracker,
     KeyboardController = imports["viking/keyboard"].KeyboardController,
-    BodyTracker = imports["util/camera"].BodyTracker;
+    CameraPointTracker = imports["util/camera"].CameraPointTracker;
 
 
 var viking_info = {
@@ -130,7 +130,9 @@ var main = function()
         x += 4;
     }
 
-    var playerController = new KeyboardController(vikings[player_id], new KeyboardTracker());
+    var player = vikings[player_id];
+
+    var playerController = new KeyboardController(player, new KeyboardTracker());
 
     for (id in vikings) {
         viewManager.addView(new VikingView(scene, vikings[id]));
@@ -149,11 +151,13 @@ var main = function()
     scene.add(camera);
     camera.up = new THREE.Vector3(0, 0, 1);
 
-    camera.position.x = 0;
-    camera.position.y = -70;
-    camera.position.z = 7;
+    var pos_mat = new THREE.Matrix4()
+    pos_mat.compose(new THREE.Vector3(0,-30,20),
+                    new THREE.Quaternion(1,0,0,0),
+                    new THREE.Vector3(0.9, -0.5, 1));
 
-    var cameraController = new BodyTracker(camera, vikings[player_id].bodies["body"]);
+    var cameraController = new CameraPointTracker(camera, pos_mat,
+            (player.bodies["body"].getPos).bind(player.bodies["body"]));
 
     var renderer = new THREE.WebGLRenderer({"antialias": true});
 

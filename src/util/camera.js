@@ -3,17 +3,23 @@ define("util/camera", [], function(){
 
 var exports = {};
 
-var BodyTracker = exports["BodyTracker"] = function(camera, body)
+var CameraPointTracker = exports["CameraPointTracker"] = function(camera, position_matrix, get_point)
 {
-    this._body = body;
     this._camera = camera;
+    this._get_point = get_point;
+    this._position_matrix = position_matrix;
 
-    this.update(0);
+    this.update();
 }
 
-BodyTracker.prototype.update = function(dt)
+CameraPointTracker.prototype.update = function(dt)
 {
-    this._camera.lookAt(new THREE.Vector3(this._body.getPos().x, this._body.getPos().y, 0));
+    var point = this._get_point();
+    point = new THREE.Vector3(point.x, point.y, point.z || 0)
+    this._camera.lookAt(point);
+
+    point.applyMatrix4(this._position_matrix);
+    this._camera.position = point;
 }
 
 
