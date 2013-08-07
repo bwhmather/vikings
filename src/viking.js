@@ -35,7 +35,7 @@ var Weapon = exports.Weapon = function(space, viking)
             2.5, -1.3,
             2.5, -1.4,
             0, -1.4
-            ], cp.v(0,0));
+        ], cp.v(0,0));
     this.shape.friction = 1;
     this._space.addShape(this.shape);
 };
@@ -146,7 +146,7 @@ Viking.prototype.getDesiredHeading = function() {
 
 Viking.prototype.setMoving = function(moving) {
     this._moving = moving;
-}
+};
 
 Viking.prototype.getHeading = function() {
     return this.bodies["body"].a % (2*Math.PI);
@@ -155,18 +155,17 @@ Viking.prototype.getHeading = function() {
 
 Viking.prototype.setAttacking = function() {
     this._attacking = true;
-}
+};
 Viking.prototype.setDefending = function() {
     this._attacking = false;
-}
+};
 
 Viking.prototype.isAttacking = function() {
     return this._attacking;
-}
-
+};
 Viking.prototype.isDefending = function() {
     return this._defending;
-}
+};
 
 
 Viking.prototype.setStateFromSnapshot = function(state)
@@ -207,7 +206,7 @@ Viking.prototype.update = function(dt)
     body.t = 4*difference - 0.2* body.w; // TODO proper controller
 
     this.weapon.update(dt);
-    this.shield.update(dt)
+    this.shield.update(dt);
 };
 
 Viking.prototype.destroy = function()
