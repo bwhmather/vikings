@@ -2,18 +2,11 @@ Vikings
 =======
 
 
-Libraries
----------
 
-  * [https://github.com/josephg/Chipmunk-js](Chipmunk) (2d physics engine)
-  * [http://threejs.org](ThreeJS) (3D graphics)
-  * [http://requirejs.org](RequireJS) (javascript loading)
+Design
+------
 
-
-
-
-Aiming models
--------------
+### Aiming and Movement
 
   * Aim with mouse, click to move
       - set heading
@@ -36,26 +29,24 @@ Aiming models
       - set motion in global coordinates
 
 
-  * set from state
-  * set from state delta
+### Attacking
+
+Two states:
+
+  * Attacking:
+      - shield is pulled back
+      - weapon moves forward
+      - weapon does damage if hits an opponent (proportional to the speed of the impact?)
+
+  * Defending
+      - shield moves forward
+      - weapon moves back
+      - weapon does no damage
 
 
+### Camera
 
-
-Camera
-------
-
-
-    viking pos  -> |set camera pos| \------------------------->|damp position|
-                \--------------------->|set camera direction|->|damp direction|
-
-
-    camera_pos_desired = f(viking_pos)
-    camera_pos = damping(camera_pos_desired, camera_pos)
-
-    camera_target_desired = g(viking_pos, camera_pos)
-    camera_zoom
-
+Camera moves with viking but translated and slowed down.
 
      -------------------
     |                   |
@@ -67,20 +58,15 @@ Camera
          |         |  <- camera track
           - - - - -
 
+Viewport is always centered on target.
+
+### Networking
 
 
 
+Libraries
+---------
 
-
-TODO
-----
-
-### code
-[ ] viking configuration format
-
-
-
-
-###
-[ ] fix body model
-[ ] texturing
+  * [https://github.com/josephg/Chipmunk-js](Chipmunk) (2d physics engine)
+  * [http://threejs.org](ThreeJS) (3D graphics)
+  * [http://requirejs.org](RequireJS) (javascript loading)
