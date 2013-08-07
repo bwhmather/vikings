@@ -26,7 +26,7 @@ var VikingView = exports.VikingView = function(scene, viking)
         this.views["beard"] = new BodyView(scene, viking.bodies["body"], mesh);
     }.bind(this));
 
-    loader.load('data/hatchet.js', function (geometry, materials) {
+    loader.load('data/sword.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
         this.views["hatchet"] = new BodyView(scene, viking.bodies["weapon"], mesh);
