@@ -29,7 +29,7 @@ var VikingView = exports.VikingView = function(scene, viking)
     loader.load('data/hatchet.js', function (geometry, materials) {
         var material = new THREE.MeshFaceMaterial(materials);
         var mesh = new THREE.Mesh(geometry, material);
-        this.views["hatchet"] = new BodyView(scene, viking.bodies["body"], mesh);
+        this.views["hatchet"] = new BodyView(scene, viking.bodies["weapon"], mesh);
     }.bind(this));
 
     loader.load('data/helmet.js', function (geometry, materials) {

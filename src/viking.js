@@ -18,16 +18,17 @@ var Viking = exports.Viking = function(space, spec, pos)
     this.dead = false;
 
 
-    var body = this.bodies["body"] = new cp.Body(1, 1); //cp.momentForCircle(1, 1, 1, 0));
-    body.setPos(pos);
+    var body = this.bodies["body"] = new cp.Body(1, 0.4); //cp.momentForCircle(1, 1, 1, 0));
+    body.setPos(cp.v(pos.x, pos.y));
 
     var body_shape = this.shapes["body"] = new cp.CircleShape(body, 1, cp.v(0,0));
 
 
     var shield = this.bodies["shield"] = new cp.Body(0.1, 0.1);
-    shield.setPos(pos);
+    shield.setPos(cp.v(pos.x, pos.y));
 
-    this.constraints["shield_pin"] = new cp.PivotJoint(body, shield, pos);
+    this.constraints["shield_pin"] = new cp.PivotJoint(body, shield,
+                                                       cp.v(0,0), cp.v(0,0));
     this.constraints["shield_spring"] = new cp.DampedRotarySpring(body, shield, -0.4, 3, 0.1);
     this.constraints["shield_limit"] = new cp.RotaryLimitJoint(body, shield, 0.3, 1.5);
 
@@ -40,6 +41,22 @@ var Viking = exports.Viking = function(space, spec, pos)
             1.37478, -0.793729,
             1.1225, -1.1225
             ], cp.v(0,0))
+
+
+
+    var weapon = this.bodies["weapon"] = new cp.Body(0.1, 0.1);
+    weapon.setPos(cp.v(pos.x, pos.y));
+
+    this.constraints["weapon_pin"] = new cp.GrooveJoint(body, weapon,
+                                                        cp.v(-0.1, 0), cp.v(1.5, 0),
+                                                        cp.v(0,0));
+
+    this.constraints["weapon_pointer"] = new cp.RotaryLimitJoint(body, weapon, -0.05, 0.05);
+    this.constraints["weapon_spring"] = new cp.DampedSpring(body, weapon,
+                                                            cp.v(-0.2,0), cp.v(0,0),
+                                                            0, 2, 0.1);
+
+
 
     for (name in this.bodies) {
         this._space.addBody(this.bodies[name]);
@@ -68,6 +85,22 @@ Viking.prototype.setMoving = function(moving) {
 Viking.prototype.getHeading = function() {
     return this.bodies["body"].a % (2*Math.PI);
 };
+
+
+Viking.prototype.setAttacking = function() {
+    this._attacking = true;
+}
+Viking.prototype.setDefending = function() {
+    this._attacking = false;
+}
+
+Viking.prototype.isAttacking = function() {
+    return this._attacking;
+}
+
+Viking.prototype.isDefending = function() {
+    return this._defending;
+}
 
 
 Viking.prototype.setStateFromSnapshot = function(state)
@@ -106,6 +139,10 @@ Viking.prototype.update = function(dt)
 
 
     body.t = 4*difference - 0.2* body.w; // TODO proper controller
+
+
+    this.constraints["shield_spring"].restAngle = this._attacking ? -1.4 : -0.4;
+    this.constraints["weapon_spring"].restLength = this._attacking ? 2 : 0;
 };
 
 Viking.prototype.destroy = function()

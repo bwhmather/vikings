@@ -24,6 +24,12 @@ KeyboardController.prototype.update = function(dt)
     } else {
         this._viking.setMoving(false);
     }
+
+    if (this._tracker.pressed("space")) {
+        this._viking.setAttacking();
+    } else {
+        this._viking.setDefending();
+    }
 };
 
 return exports;
