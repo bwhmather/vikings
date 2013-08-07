@@ -45,6 +45,16 @@ Weapon.prototype.update = function(dt)
     this.spring_constraint.restLength = this._viking.isAttacking() ? 2 : 0;
 };
 
+Weapon.prototype.destroy = function()
+{
+    this._space.removeBody(this.body);
+
+    this._space.removeConstraint(this.pin_constraint);
+    this._space.removeConstraint(this.pointer_constraint);
+    this._space.removeConstraint(this.spring_constraint);
+
+    this._space.removeShape(this.shape);
+};
 
 var Shield = exports.Shield = function(space, viking)
 {
@@ -84,6 +94,17 @@ var Shield = exports.Shield = function(space, viking)
 
     this._space.addShape(this.shape);
 };
+
+Shield.prototype.destroy = function()
+{
+    this._space.removeBody(this.body);
+
+    this._space.removeConstraint(this.pin_constraint);
+    this._space.removeConstraint(this.spring_constraint);
+    this._space.removeConstraint(this.limit_constraint);
+
+    this._space.removeShape(this.shape);
+}
 
 Shield.prototype.update = function(dt)
 {
@@ -191,6 +212,8 @@ Viking.prototype.update = function(dt)
 
 Viking.prototype.destroy = function()
 {
+    this.weapon.destroy();
+    this.shield.destroy();
 };
 
 
