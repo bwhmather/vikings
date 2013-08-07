@@ -2,6 +2,7 @@ define("viking", [], function(){
 'use strict';
 
 var exports = {};
+var shape_group = 1;
 
 var Viking = exports.Viking = function(space, spec, pos)
 {
@@ -21,7 +22,8 @@ var Viking = exports.Viking = function(space, spec, pos)
     var body = this.bodies["body"] = new cp.Body(1, 0.4); //cp.momentForCircle(1, 1, 1, 0));
     body.setPos(cp.v(pos.x, pos.y));
 
-    var body_shape = this.shapes["body"] = new cp.CircleShape(body, 1, cp.v(0,0));
+    this.shapes["body"] = new cp.CircleShape(body, 1, cp.v(0,0));
+    this.shapes["body"].friction = 1;
 
 
     var shield = this.bodies["shield"] = new cp.Body(0.1, 0.1);
@@ -40,31 +42,39 @@ var Viking = exports.Viking = function(space, spec, pos)
             1.53337, -0.410865,
             1.37478, -0.793729,
             1.1225, -1.1225
-            ], cp.v(0,0))
-
+            ], cp.v(0,0));
+    this.shapes["shield"].friction = 1;
 
 
     var weapon = this.bodies["weapon"] = new cp.Body(0.1, 0.1);
     weapon.setPos(cp.v(pos.x, pos.y));
 
     this.constraints["weapon_pin"] = new cp.GrooveJoint(body, weapon,
-                                                        cp.v(-0.1, 0), cp.v(1.5, 0),
+                                                        cp.v(-0.2, 0), cp.v(1.5, 0),
                                                         cp.v(0,0));
 
     this.constraints["weapon_pointer"] = new cp.RotaryLimitJoint(body, weapon, -0.05, 0.05);
     this.constraints["weapon_spring"] = new cp.DampedSpring(body, weapon,
-                                                            cp.v(-0.2,0), cp.v(0,0),
+                                                            cp.v(-0.3,0), cp.v(0,0),
                                                             0, 2, 0.1);
 
-
+    this.shapes["weapon"] = new cp.PolyShape(weapon, [
+            0, -1.3,
+            2.5, -1.3,
+            2.5, -1.4,
+            0, -1.4
+            ], cp.v(0,0));
+    this.shapes["weapon"].friction = 1;
 
     for (name in this.bodies) {
         this._space.addBody(this.bodies[name]);
     }
 
     for (name in this.shapes) {
+        this.shapes[name].group = shape_group;
         this._space.addShape(this.shapes[name]);
     }
+    shape_group++;
 
     for (name in this.constraints) {
         this._space.addConstraint(this.constraints[name]);
