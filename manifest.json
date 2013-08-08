@@ -1,16 +1,15 @@
-manifest = {
+{
 "weapons": {
     "short_sword": {
         "name": "Short Sword",
         "description": "Short and pointy",
 
         "two_handed": false,
+        "action": "stabbing",
+
         "attack": 100,
-        // "how far away the tip startsfrom the x=0 line
         "length": 2,
-        // "the length of the collision box at the end of the weapon
         "tip": 0.2,
-        // "how far the weapon moves
         "reach": 1,
         "mass": 0.1,
 
@@ -30,7 +29,6 @@ manifest = {
         "name": "Kite Shield",
         "description": "",
 
-        // "angle in radians.  the size of the arc that the shield protects
         "coverage": 1, 
         "mass": 0.5,
 
@@ -54,7 +52,7 @@ manifest = {
 
 },
 
-"beards": }
+"beards": {
 
 }
 

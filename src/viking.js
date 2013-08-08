@@ -63,7 +63,7 @@ var makeWeapon = function(type, space, viking)
 {
     var cls, spec;
 
-    spec = manifest["weapons"]["type"];
+    spec = manifest["weapons"][type];
 
     switch (spec.action) {
     case "stabbing":
@@ -82,7 +82,7 @@ var makeWeapon = function(type, space, viking)
 }
 
 
-var Shield = exports.Shield = function(type, space, viking)
+var Shield = exports.Shield = function(type, spec, space, viking)
 {
     this.type = type;
 
@@ -184,7 +184,7 @@ Viking.prototype.setMoving = function(moving) {
 };
 
 Viking.prototype.getHeading = function() {
-    return this.bodies["body"].a % (2*Math.PI);
+    return this.body.a % (2*Math.PI);
 };
 
 

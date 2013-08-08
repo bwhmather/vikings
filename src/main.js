@@ -1,3 +1,5 @@
+var manifest = undefined;
+
 require.config({
     baseUrl: "/src",
 });
@@ -32,11 +34,16 @@ var main = function()
     space.sleepTimeThreshold = 0.5;
     space.collisionSlop = 0.5;
 
-    var manifest = new XMLHttpRequest("GET", "manifest.json", false);
+    var manifest_request = new XMLHttpRequest();
+    manifest_request.open("GET", "manifest.json", false);
+    manifest_request.send();
+    manifest = JSON.parse(manifest_request.responseText); // TODO TODO
+
 
     var player_info_request = new XMLHttpRequest();
     player_info_request.open("GET", "players.json", false);
     player_info_request.send();
+    console.log
     var player_info = JSON.parse(player_info_request.responseText);
 
     var viking_info = player_info["vikings"];
