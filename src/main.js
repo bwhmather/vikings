@@ -146,6 +146,18 @@ var main = function()
     sun.position.z = 100;
     scene.add(sun);
 
+    var ground_geometry = new THREE.PlaneGeometry(100, 100, 2, 2);
+
+    var ground_texture = THREE.ImageUtils.loadTexture("grassdirt-small.png");
+    ground_texture.wrapS = THREE.RepeatWrapping;
+    ground_texture.wrapT = THREE.RepeatWrapping;
+    ground_texture.repeat.set( 1, 1 );
+
+    var ground_material = new THREE.MeshBasicMaterial({"map": ground_texture});
+
+    var ground = new THREE.Mesh(ground_geometry, ground_material);
+    scene.add(ground);
+
     var camera = new THREE.PerspectiveCamera(40, window.innerWidth /
                                                  window.innerHeight, 0.1, 1000);
     scene.add(camera);
