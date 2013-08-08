@@ -1,0 +1,61 @@
+manifest = {
+"weapons": {
+    "short_sword": {
+        "name": "Short Sword",
+        "description": "Short and pointy",
+
+        "two_handed": false,
+        "attack": 100,
+        // "how far away the tip startsfrom the x=0 line
+        "length": 2,
+        // "the length of the collision box at the end of the weapon
+        "tip": 0.2,
+        // "how far the weapon moves
+        "reach": 1,
+        "mass": 0.1,
+
+        "geometry": "short-sword.js",
+        "texture": {
+            "default": {
+                "diffuse": "sword_diffuse.png",
+                "specular": "sword_specular.png",
+                "normal": "sword_normal.png"
+            }
+        }
+    }
+},
+
+"shields": {
+    "kite_shield": {
+        "name": "Kite Shield",
+        "description": "",
+
+        // "angle in radians.  the size of the arc that the shield protects
+        "coverage": 1, 
+        "mass": 0.5,
+
+        "geometry": "kite-shield.js",
+        "texture": {
+            "black": {
+                "diffuse": "kite-shield_black_diffuse.png",
+                "specular": false,
+                "normal": false
+            },
+            "white": {
+                "diffuse": "kite-shield_white_diffuse.png",
+                "specular": false,
+                "normal": false
+            }
+        }
+    }
+},
+
+"helmets": {
+
+},
+
+"beards": }
+
+}
+
+}

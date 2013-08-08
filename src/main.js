@@ -19,96 +19,6 @@ var Viking = imports["viking"].Viking,
     KeyboardController = imports["viking/keyboard"].KeyboardController,
     CameraPointTracker = imports["util/camera"].CameraPointTracker;
 
-
-var viking_info = {
-    1: {
-        "name": "Olaf",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    },
-    2: {
-        "name": "Bjørn",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    },
-    3: {
-        "name": "Børge",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    },
-    4: {
-        "name": "Diðrik",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    },
-    5: {
-        "name": "Dufþakur",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    },
-    6: {
-        "name": "Eðvald",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    },
-    7: {
-        "name": "Ege",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    },
-    8: {
-        "name": "Erik",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    },
-    9: {
-        "name": "Hågen",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    },
-    10: {
-        "name": "Høder",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    },
-    11: {
-        "name": "Iørgen",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    },
-    12: {
-        "name": "Jønis",
-        "helmet": "helmet",
-        "weapon": "hatchet",
-        "shield": "kite-shield",
-        "body": "body"
-    }
-};
-var player_id = 2;
-
-
 var main = function()
 {
     var space = new cp.Space();
@@ -122,11 +32,21 @@ var main = function()
     space.sleepTimeThreshold = 0.5;
     space.collisionSlop = 0.5;
 
+    var manifest = new XMLHttpRequest("GET", "manifest.json", false);
+
+    var player_info_request = new XMLHttpRequest();
+    player_info_request.open("GET", "players.json", false);
+    player_info_request.send();
+    var player_info = JSON.parse(player_info_request.responseText);
+
+    var viking_info = player_info["vikings"];
+    var player_id = player_info["player"];
+
     var vikings = {};
     var x = 0;
     var id;
     for (id in viking_info) {
-        vikings[id] = new Viking(space, viking_info[id], cp.v(x, 0));
+        vikings[id] = new Viking(viking_info[id], space, cp.v(x, 0));
         x += 4;
     }
 

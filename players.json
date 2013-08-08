@@ -1,0 +1,114 @@
+{
+"vikings": {
+    "1": {
+        "name": "Olaf",
+        "team": "black",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    },
+    "2": {
+        "name": "Bjørn",
+        "team": "black",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    },
+    "3": {
+        "name": "Børge",
+        "team": "black",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    },
+    "4": {
+        "name": "Diðrik",
+        "team": "black",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    },
+    "5": {
+        "name": "Dufþakur",
+        "team": "black",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    },
+    "6": {
+        "name": "Eðvald",
+        "team": "black",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    },
+    "7": {
+        "name": "Ege",
+        "team": "white",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    },
+    "8": {
+        "name": "Erik",
+        "team": "white",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    },
+    "9": {
+        "name": "Hågen",
+        "team": "white",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    },
+    "10": {
+        "name": "Høder",
+        "team": "white",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    },
+    "11": {
+        "name": "Iørgen",
+        "team": "white",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    },
+    "12": {
+        "name": "Jønis",
+        "team": "white",
+        "helmet": "helmet",
+        "weapon": "short_sword",
+        "shield": "kite_shield",
+        "beard": "beard",
+        "body": "body"
+    }
+},
+
+"player": "2"
+}

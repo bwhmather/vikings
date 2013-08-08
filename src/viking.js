@@ -3,8 +3,11 @@ define("viking", [], function(){
 
 var exports = {};
 
-var Weapon = exports.Weapon = function(space, viking)
+
+var Weapon = exports.Weapon = function(type, spec, space, viking)
 {
+    this.type = type;
+
     this._space = space;
     this._viking = viking;
 
@@ -56,8 +59,30 @@ Weapon.prototype.destroy = function()
     this._space.removeShape(this.shape);
 };
 
-var Shield = exports.Shield = function(space, viking)
+var makeWeapon = function(type, space, viking)
 {
+    var cls, spec;
+
+    spec = manifest["weapons"]["type"];
+
+    switch (spec.action) {
+    case "stabbing":
+        cls = spec.two_handed ? Weapon : Weapon;
+        break;
+    case "hacking":
+        cls = spec.two_handed ? Weapon : Weapon;
+        break;
+    default:
+        throw "unrecognize action";
+    }
+    return new cls(type, spec, space, viking);
+}
+
+
+var Shield = exports.Shield = function(type, space, viking)
+{
+    this.type = type;
+
     this._space = space;
     this._viking = viking;
 
@@ -112,8 +137,10 @@ Shield.prototype.update = function(dt)
 }
 
 
-var Viking = exports.Viking = function(space, spec, pos)
+var Viking = exports.Viking = function(spec, space, pos)
 {
+    this.spec = spec;
+
     // Physics stuff
     this._space = space;
 
@@ -133,8 +160,8 @@ var Viking = exports.Viking = function(space, spec, pos)
     this._space.addShape(this.shape);
 
     // TODO factories
-    this.weapon = new Weapon(this._space, this);
-    this.shield = new Shield(this._space, this);
+    this.weapon = new Weapon(this.spec["weapon"], this._space, this);
+    this.shield = new Shield(this.spec["shield"], this._space, this);
 };
 
 Viking.prototype.setDesiredHeading = function(heading) {
