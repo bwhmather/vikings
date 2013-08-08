@@ -14,7 +14,7 @@ OUTPUT_DIRS := $(patsubst %,$(OUTPUT_DIR)/%,$(INPUT_DIRS))
 JS_SOURCES := $(shell find data src -name '*.js')
 JS := $(patsubst %.js,$(OUTPUT_DIR)/%.js,$(JS_SOURCES))
 
-STATIC_SOURCES := index.html $(JS_SOURCES) lib/require.js lib/chipmunk.js lib/three.js
+STATIC_SOURCES := index.html $(JS_SOURCES) lib/require.js lib/chipmunk.js lib/three.js players.json manifest.json
 STATIC := $(patsubst %,$(OUTPUT_DIR)/%,$(STATIC_SOURCES))
 
 .PHONY: all
