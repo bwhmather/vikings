@@ -69,7 +69,10 @@ var makeWeapon = function(type, space, viking)
     case "stabbing":
         cls = spec.two_handed ? Weapon : Weapon;
         break;
-    case "hacking":
+    case "hacking": // vertical arc
+        cls = spec.two_handed ? Weapon : Weapon;
+        break;
+    case "swinging": // horizontal arc
         cls = spec.two_handed ? Weapon : Weapon;
         break;
     default:
@@ -136,6 +139,11 @@ Shield.prototype.update = function(dt)
     this.spring_constraint.restAngle = this._viking.isAttacking() ? -1.4 : -0.4;
 }
 
+var makeShield = function(type, space, viking)
+{
+    return new Shield(type, manifest["shields"]["type"], space, viking);
+}
+
 
 var Viking = exports.Viking = function(spec, space, pos)
 {
@@ -160,8 +168,8 @@ var Viking = exports.Viking = function(spec, space, pos)
     this._space.addShape(this.shape);
 
     // TODO factories
-    this.weapon = new Weapon(this.spec["weapon"], this._space, this);
-    this.shield = new Shield(this.spec["shield"], this._space, this);
+    this.weapon = makeWeapon(this.spec["weapon"], this._space, this);
+    this.shield = makeShield(this.spec["shield"], this._space, this);
 };
 
 Viking.prototype.setDesiredHeading = function(heading) {
